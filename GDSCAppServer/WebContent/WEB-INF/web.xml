@@ -226,13 +226,13 @@
     <url-pattern>/queryNaviInfo</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description>QueryAd</description>
-    <display-name>AdServlet</display-name>
-    <servlet-name>AdServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.AdServlet</servlet-class>
+    <description>queryInterestPlacesInfo</description>
+    <display-name>QueryInterestPlacesInfoServlet</display-name>
+    <servlet-name>QueryInterestPlacesInfoServlet</servlet-name>
+    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryInterestPlacesInfoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AdServlet</servlet-name>
-    <url-pattern>/queryAd</url-pattern>
+    <servlet-name>QueryInterestPlacesInfoServlet</servlet-name>
+    <url-pattern>/queryInterestPlaces</url-pattern>
   </servlet-mapping>
 </web-app>
