@@ -1,6 +1,7 @@
 package com.winjune.ips.model.types;
 
 public class InterestPlaceReply {
+	private int serial ;
 	private int x;
 	private int y;
 	private String info;
@@ -8,6 +9,14 @@ public class InterestPlaceReply {
 	private String urlAudio;
 	private String urlVideo;
 
+	public int getSerial() {
+		return serial ;
+	}
+	
+	public void setSerial(int serial ){
+		this.serial  = serial;
+	}	
+	
 	public int getX() {
 		return x;
 	}

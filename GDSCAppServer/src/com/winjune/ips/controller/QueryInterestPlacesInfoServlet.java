@@ -81,7 +81,7 @@ public class QueryInterestPlacesInfoServlet extends HttpServlet {
 					return;
 				}
 				
-				String sql = "SELECT row_id, col_id, text_info, pic_info, audio_info, video_info"
+				String sql = "SELECT id, row_id, col_id, text_info, pic_info, audio_info, video_info"
 						+ " FROM interest_places WHERE map_id=?";
 				
 				PreparedStatement statement = connection.prepareStatement(sql);
@@ -92,18 +92,22 @@ public class QueryInterestPlacesInfoServlet extends HttpServlet {
 				ArrayList<InterestPlaceReply> places = new ArrayList<InterestPlaceReply>();
 
 				while (rs.next()) {
-					int rowNo = rs.getInt(1);
-					int colNo = rs.getInt(2);
-					String textInfo = rs.getString(3);
-					String picInfo = rs.getString(4);
-					String audioInfo = rs.getString(5);
-					String videoInfo = rs.getString(6);
+					int serial =rs.getInt(1);
+					int rowNo = rs.getInt(2);
+					int colNo = rs.getInt(3);
+					String textInfo = rs.getString(4);
+					String picInfo = rs.getString(5);
+					String audioInfo = rs.getString(6);
+					String videoInfo = rs.getString(7);
 					
+					/* 
 					if ((colNo == -1) || (rowNo == -1)) {
 						continue;
 					}
+					*/
 					
 					InterestPlaceReply place = new InterestPlaceReply();
+					place.setSerial(serial);
 					place.setY(rowNo);  // Row is Y
 					place.setX(colNo);  // Col is X
 					place.setInfo(textInfo);
