@@ -16,7 +16,7 @@
     <description>Just for test</description>
     <display-name>TestServlet</display-name>
     <servlet-name>TestServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.TestServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.TestServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>TestServlet</servlet-name>
@@ -26,7 +26,7 @@
     <description>locate</description>
     <display-name>LocateServlet</display-name>
     <servlet-name>LocateServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.LocateServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.LocateServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LocateServlet</servlet-name>
@@ -36,7 +36,7 @@
     <description>locateTest</description>
     <display-name>LocateTestServlet</display-name>
     <servlet-name>LocateTestServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.LocateTestServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.LocateTestServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LocateTestServlet</servlet-name>
@@ -46,7 +46,7 @@
     <description>collect</description>
     <display-name>CollectServlet</display-name>
     <servlet-name>CollectServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.CollectServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.CollectServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CollectServlet</servlet-name>
@@ -56,20 +56,20 @@
     <description>collectTest</description>
     <display-name>CollectTestServlet</display-name>
     <servlet-name>CollectTestServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.CollectTestServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.CollectTestServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CollectTestServlet</servlet-name>
     <url-pattern>/collectTest</url-pattern>
   </servlet-mapping>
   <listener>
-    <listener-class>com.ericsson.cgc.aurora.wifiips.utils.WifiIpsServletContextListener</listener-class>
+    <listener-class>com.winjune.ips.utils.WifiIpsServletContextListener</listener-class>
   </listener>
   <servlet>
     <description>query</description>
     <display-name>QueryServlet</display-name>
     <servlet-name>QueryServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.QueryServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryServlet</servlet-name>
@@ -79,7 +79,7 @@
     <description>nfcCollect</description>
     <display-name>NfcCollectServlet</display-name>
     <servlet-name>NfcCollectServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.NfcCollectServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.NfcCollectServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>NfcCollectServlet</servlet-name>
@@ -89,7 +89,7 @@
     <description>nfcLocate</description>
     <display-name>NfcLocateServlet</display-name>
     <servlet-name>NfcLocateServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.NfcLocateServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.NfcLocateServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>NfcLocateServlet</servlet-name>
@@ -99,7 +99,7 @@
     <description>traceEntry</description>
     <display-name>TraceEntryServlet</display-name>
     <servlet-name>TraceEntryServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.TraceEntryServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.TraceEntryServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>TraceEntryServlet</servlet-name>
@@ -109,7 +109,7 @@
     <description>trace</description>
     <display-name>TraceServlet</display-name>
     <servlet-name>TraceServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.TraceServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.TraceServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>TraceServlet</servlet-name>
@@ -119,7 +119,7 @@
     <description>fpDelete</description>
     <display-name>FingerprintDeleteServlet</display-name>
     <servlet-name>FingerprintDeleteServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.FingerprintDeleteServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.FingerprintDeleteServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>FingerprintDeleteServlet</servlet-name>
@@ -129,7 +129,7 @@
     <description>testRecord</description>
     <display-name>QueryTestRecordServlet</display-name>
     <servlet-name>QueryTestRecordServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryTestRecordServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.QueryTestRecordServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryTestRecordServlet</servlet-name>
@@ -139,7 +139,7 @@
     <description>tuner</description>
     <display-name>TunerServlet</display-name>
     <servlet-name>TunerServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.TunerServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.TunerServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>TunerServlet</servlet-name>
@@ -149,7 +149,7 @@
     <description>saveTuner</description>
     <display-name>TunerSaverServlet</display-name>
     <servlet-name>TunerSaverServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.TunerSaverServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.TunerSaverServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>TunerSaverServlet</servlet-name>
@@ -159,7 +159,7 @@
     <description>mapReport</description>
     <display-name>MapReportServlet</display-name>
     <servlet-name>MapReportServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.MapReportServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.MapReportServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MapReportServlet</servlet-name>
@@ -169,7 +169,7 @@
     <description>queryApk</description>
     <display-name>QueryApkVersionServlet</display-name>
     <servlet-name>QueryApkVersionServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryApkVersionServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.QueryApkVersionServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryApkVersionServlet</servlet-name>
@@ -179,7 +179,7 @@
     <description>queryBuildingList</description>
     <display-name>QueryBuildingListServlet</display-name>
     <servlet-name>QueryBuildingListServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryBuildingListServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.QueryBuildingListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryBuildingListServlet</servlet-name>
@@ -189,7 +189,7 @@
     <description>queryMapList</description>
     <display-name>QueryMapListServlet</display-name>
     <servlet-name>QueryMapListServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryMapListServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.QueryMapListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryMapListServlet</servlet-name>
@@ -199,7 +199,7 @@
     <description>dowloadMap</description>
     <display-name>DownloadMapServlet</display-name>
     <servlet-name>DownloadMapServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.DownloadMapServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.DownloadMapServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>DownloadMapServlet</servlet-name>
@@ -209,7 +209,7 @@
     <description>queryMapInfo</description>
     <display-name>QueryMapInfoServlet</display-name>
     <servlet-name>QueryMapInfoServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryMapInfoServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.QueryMapInfoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryMapInfoServlet</servlet-name>
@@ -219,7 +219,7 @@
     <description>queryNaviInfo</description>
     <display-name>QueryNaviInfoServlet</display-name>
     <servlet-name>QueryNaviInfoServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryNaviInfoServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.QueryNaviInfoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryNaviInfoServlet</servlet-name>
@@ -229,7 +229,7 @@
     <description>queryInterestPlacesInfo</description>
     <display-name>QueryInterestPlacesInfoServlet</display-name>
     <servlet-name>QueryInterestPlacesInfoServlet</servlet-name>
-    <servlet-class>com.ericsson.cgc.aurora.wifiips.controller.QueryInterestPlacesInfoServlet</servlet-class>
+    <servlet-class>com.winjune.ips.controller.QueryInterestPlacesInfoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>QueryInterestPlacesInfoServlet</servlet-name>
