@@ -87,11 +87,14 @@ public class QueryServlet extends HttpServlet {
 			return;
 		}
 
-		QueryInfo queryInfo = queryingInstance.query(infoQueryRequest);
-
+		QueryInfo queryInfo = queryingInstance.query(infoQueryRequest);	
+		
 		String queryInfoString = gson.toJson(queryInfo);
 
 		JSONObject jsonObject = new JSONObject(queryInfoString);
+		
+		response.setContentType("application/json;charset=UTF-8");  // Handle Chinese
+		response.setCharacterEncoding("UTF-8");		
 
 		jsonObject.write(response.getWriter());
 
