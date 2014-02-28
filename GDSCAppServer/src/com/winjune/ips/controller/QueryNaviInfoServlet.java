@@ -111,7 +111,7 @@ public class QueryNaviInfoServlet extends HttpServlet {
 				}
 				
 				// Select out all Nodes in this Map and neighboring maps
-				String sql2 = "SELECT id, map_id, col_id, row_id, name"
+				String sql2 = "SELECT id, general_name_id, map_id, col_id, row_id, name"
 						+ " FROM navigator_nodes WHERE map_id IN (" 
 						+ maps + mapId + ")";
 				
@@ -122,12 +122,13 @@ public class QueryNaviInfoServlet extends HttpServlet {
 				String nodeIds = "";
 				while (rs2.next()) {					
 					int nodeId2 = rs2.getInt(1);
-					int mapId2 = rs2.getInt(2);
-					int colId2 = rs2.getInt(3);
-					int rowId2 = rs2.getInt(4);
-					String name2 = rs2.getString(5);
+					int nameId = rs2.getInt(2);
+					int mapId2 = rs2.getInt(3);
+					int colId2 = rs2.getInt(4);
+					int rowId2 = rs2.getInt(5);
+					String name2 = rs2.getString(6);
 					
-					if ((mapId2 == -1) || (colId2 == -1) || (rowId2 == -1) || (name2 == null) || name2.isEmpty()) {
+					if ((mapId2 == -1) ||  (name2 == null) || name2.isEmpty()) {
 						continue;
 					}
 					
@@ -136,6 +137,7 @@ public class QueryNaviInfoServlet extends HttpServlet {
 
 					NaviNodeReply node = new NaviNodeReply();
 					node.setId(nodeId2);
+					node.setNameId(nameId);
 					node.setMapId(mapId2);
 					node.setX(colId2);
 					node.setY(rowId2);
@@ -147,7 +149,7 @@ public class QueryNaviInfoServlet extends HttpServlet {
 					naviInfo.setNodes(nodes);
 					nodeIds = nodeIds.substring(0, nodeIds.length()-1); // Delete last ","
 					
-					String sql3 = "SELECT from_node, to_node, distance, guide_info"
+					String sql3 = "SELECT from_node, to_node, distance, forward_guide_info, backward_guide_info"
 							+ " FROM navigator_data WHERE from_node IN (" + nodeIds + ") AND to_node IN (" + nodeIds + ")";
 					
 					PreparedStatement statement3 = connection.prepareStatement(sql3);
@@ -157,8 +159,9 @@ public class QueryNaviInfoServlet extends HttpServlet {
 					while (rs3.next()) {
 						int fromNode3 = rs3.getInt(1);
 						int toNode3 = rs3.getInt(2);
-						float distance3 = rs3.getFloat(3);
-						String info3 = rs3.getString(4);						
+						int distance3 = rs3.getInt(3);
+						String fInfo3 = rs3.getString(4);
+						String bInfo3 = rs3.getString(5);
 						
 						if (distance3 < 0) {
 							continue;
@@ -168,7 +171,8 @@ public class QueryNaviInfoServlet extends HttpServlet {
 						path.setFrom(fromNode3);
 						path.setTo(toNode3);
 						path.setDistance(distance3);
-						path.setInfo(info3);
+						path.setForwardInfo(fInfo3);
+						path.setBackwardInfo(bInfo3);
 						paths.add(path);
 					}
 					
