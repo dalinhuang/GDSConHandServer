@@ -81,7 +81,7 @@ public class QueryMapInfoServlet extends HttpServlet {
 					return;
 				}
 				
-				String sql = "SELECT row_id, col_id, title, title_rotation, title_alpha, title_scale"
+				String sql = "SELECT row_id, col_id, title, title_rotation, title_alpha, title_scale, min_zoomfactor, max_zoomfactor"
 						+ " FROM position WHERE map_id=?";
 				
 				PreparedStatement statement = connection.prepareStatement(sql);
@@ -107,6 +107,8 @@ public class QueryMapInfoServlet extends HttpServlet {
 					float rotation = rs.getFloat(4);
 					float alpha = rs.getFloat(5);
 					float scale = rs.getFloat(6);
+					float minZoomFactor = rs.getFloat(7);
+					float maxZoomFactor = rs.getFloat(8);
 						
 					FieldInfoReply field = new FieldInfoReply();
 					field.setY(rowNo);  // Row is Y
@@ -121,6 +123,8 @@ public class QueryMapInfoServlet extends HttpServlet {
 						scale = 1;
 					}
 					field.setScale(scale);
+					field.setMinZoomFactor(minZoomFactor);
+					field.setMaxZoomFactor(maxZoomFactor);
 					fields.add(field);
 				}
 				
