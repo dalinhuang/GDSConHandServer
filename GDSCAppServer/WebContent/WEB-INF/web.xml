@@ -235,4 +235,14 @@
     <servlet-name>QueryInterestPlacesInfoServlet</servlet-name>
     <url-pattern>/queryInterestPlaces</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>queryCollectStatus</description>
+    <display-name>QueryCollectStatusServlet</display-name>
+    <servlet-name>QueryCollectStatusServlet</servlet-name>
+    <servlet-class>com.winjune.ips.controller.QueryCollectStatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QueryCollectStatusServlet</servlet-name>
+    <url-pattern>/queryCollectStatus</url-pattern>
+  </servlet-mapping>
 </web-app>
