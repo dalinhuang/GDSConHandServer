@@ -14,19 +14,28 @@ import com.winjune.wifiindoor.lib.poi.POIType;
 import com.winjune.wifiindoor.lib.poi.PlaceOfInterestR;
 import com.winjune.wifiindoor.lib.poi.PlayhouseInfoR;
 import com.winjune.wifiindoor.lib.poi.PoiOfflineData;
+import com.winjune.wifiindoor.lib.version.VersionInfoR;
+import com.winjune.wifiindoor.lib.version.VersionInfoT;
 
 public class PoiDB2XML {
 	public static final String TAG = "POI";
 	public static final boolean DEBUG = WifiIpsSettings.DEBUG;
 	private static PoiOfflineData offlineData;
+	private static VersionInfoT versionData;
 	private static String poiFilePath;
+	private static String versionFilePath;
 
 	public static void setPoiFilePath(String poiFilePath) {
 		PoiDB2XML.poiFilePath = poiFilePath;
 	}
 
+	public static void setVersionFilePath(String versionFilePath) {
+		PoiDB2XML.versionFilePath = versionFilePath;
+	}
+
 	public static void toXML() {
 		offlineData = new PoiOfflineData(poiFilePath);
+		versionData = new VersionInfoT();
 
 		addFestivals();
 		addPOIs();
@@ -35,8 +44,11 @@ public class PoiDB2XML {
 		addRestaurants();
 
 		addPlayhouses();
+		
+		addVersions();
 
 		offlineData.toXML();
+		versionData.toXML(versionFilePath+"version_table.xml",versionData);
 
 	}
 
@@ -303,6 +315,46 @@ public class PoiDB2XML {
 				mSchedule.addWeekendTimes(weekendTime);
 				mSchedule.addFestivalTimes(festivalTime);
 				offlineData.playhouseTable.schedules.add(mSchedule);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			if (DEBUG) {
+				LogUtil.getInstance().log(
+						TAG + ", *** SWERR *** Refer to exception traceback");
+			}
+		}
+
+	}
+	
+	public static void addVersions() {
+
+		try {
+			MysqlManager instance = MysqlManager.getInstance();
+			if (instance == null) {
+				LogUtil.getInstance().log(
+						TAG + ", " + "MysqlManager instance is null.");
+				return;
+			}
+
+			Connection connection = instance.getConnection();
+			if (connection == null) {
+				LogUtil.getInstance().log(TAG + ", " + "connection is null.");
+				return;
+			}
+
+			String sql = "SELECT tableName, version"
+					+ " FROM version";
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			
+
+			while (rs.next()) {
+				String tableName = rs.getString(1);
+				int version = rs.getInt(2);
+				versionData.addVersionItem(tableName, version);
 			}
 
 		} catch (Exception e) {
