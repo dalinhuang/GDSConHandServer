@@ -120,6 +120,7 @@ public class QueryApkVersionServlet extends HttpServlet {
 		String fileSeparator = System.getProperty("file.separator");
 		PoiDB2XML.setPoiFilePath(getServletContext().getRealPath(fileSeparator+"xml")+fileSeparator);
 		PoiDB2XML.setVersionFilePath(getServletContext().getRealPath(fileSeparator+"xml")+fileSeparator);
+		PoiDB2XML.setMapFilePath(getServletContext().getRealPath(fileSeparator+"xml")+fileSeparator);
 		PoiDB2XML.toXML();
 	}
 

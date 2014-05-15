@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.winjune.ips.db.MysqlManager;
 import com.winjune.ips.settings.WifiIpsSettings;
+import com.winjune.wifiindoor.lib.map.IndoorMapT;
 import com.winjune.wifiindoor.lib.poi.BusLineR;
 import com.winjune.wifiindoor.lib.poi.MovieInfoR;
 import com.winjune.wifiindoor.lib.poi.POIType;
@@ -22,8 +23,10 @@ public class PoiDB2XML {
 	public static final boolean DEBUG = WifiIpsSettings.DEBUG;
 	private static PoiOfflineData offlineData;
 	private static VersionInfoT versionData;
+	private static IndoorMapT mapData;
 	private static String poiFilePath;
 	private static String versionFilePath;
+	private static String mapFilePath;
 
 	public static void setPoiFilePath(String poiFilePath) {
 		PoiDB2XML.poiFilePath = poiFilePath;
@@ -33,9 +36,14 @@ public class PoiDB2XML {
 		PoiDB2XML.versionFilePath = versionFilePath;
 	}
 
+	public static void setMapFilePath(String mapFilePath) {
+		PoiDB2XML.mapFilePath = mapFilePath;
+	}
+
 	public static void toXML() {
 		offlineData = new PoiOfflineData(poiFilePath);
 		versionData = new VersionInfoT();
+		mapData = new IndoorMapT();
 
 		addFestivals();
 		addPOIs();
@@ -46,9 +54,11 @@ public class PoiDB2XML {
 		addPlayhouses();
 		
 		addVersions();
+		addMaps();
 
 		offlineData.toXML();
 		versionData.toXML(versionFilePath+"version_table.xml",versionData);
+		mapData.toXML(mapFilePath+"map_table.xml", mapData);
 
 	}
 
@@ -355,6 +365,52 @@ public class PoiDB2XML {
 				String tableName = rs.getString(1);
 				int version = rs.getInt(2);
 				versionData.addVersionItem(tableName, version);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			if (DEBUG) {
+				LogUtil.getInstance().log(
+						TAG + ", *** SWERR *** Refer to exception traceback");
+			}
+		}
+
+	}
+	
+	public static void addMaps() {
+
+		try {
+			MysqlManager instance = MysqlManager.getInstance();
+			if (instance == null) {
+				LogUtil.getInstance().log(
+						TAG + ", " + "MysqlManager instance is null.");
+				return;
+			}
+
+			Connection connection = instance.getConnection();
+			if (connection == null) {
+				LogUtil.getInstance().log(TAG + ", " + "connection is null.");
+				return;
+			}
+
+			String sql = "SELECT map_id, normal_map_url, large_map_url, name, label, cell_pixel, longitude, latitude"
+					+ " FROM map";
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			
+
+			while (rs.next()) {
+				int mapId = rs.getInt(1);
+				String normalMapUrl = rs.getString(2);
+				String largeMapUrl = rs.getString(3);
+				String name = rs.getString(4);
+				String label = rs.getString(5);
+				int cellPixel = rs.getInt(6);
+				int longitude = rs.getInt(7);
+				int latitude = rs.getInt(8);
+				mapData.addIndoorMapItem(mapId, normalMapUrl, largeMapUrl, name, label, cellPixel, longitude, latitude);
 			}
 
 		} catch (Exception e) {
