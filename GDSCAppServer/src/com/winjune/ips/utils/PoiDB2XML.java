@@ -1,21 +1,18 @@
 package com.winjune.ips.utils;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import com.winjune.ips.db.MysqlManager;
 import com.winjune.ips.settings.WifiIpsSettings;
-import com.winjune.wifiindoor.lib.map.IndoorMapT;
+import com.winjune.wifiindoor.lib.map.MapDataT;
 import com.winjune.wifiindoor.lib.poi.BusLineR;
 import com.winjune.wifiindoor.lib.poi.MovieInfoR;
 import com.winjune.wifiindoor.lib.poi.POIType;
 import com.winjune.wifiindoor.lib.poi.PlaceOfInterestR;
 import com.winjune.wifiindoor.lib.poi.PlayhouseInfoR;
 import com.winjune.wifiindoor.lib.poi.PoiOfflineData;
-import com.winjune.wifiindoor.lib.version.VersionInfoR;
 import com.winjune.wifiindoor.lib.version.VersionInfoT;
 
 public class PoiDB2XML {
@@ -23,7 +20,7 @@ public class PoiDB2XML {
 	public static final boolean DEBUG = WifiIpsSettings.DEBUG;
 	private static PoiOfflineData offlineData;
 	private static VersionInfoT versionData;
-	private static IndoorMapT mapData;
+	private static MapDataT mapData;
 	private static String poiFilePath;
 	private static String versionFilePath;
 	private static String mapFilePath;
@@ -43,7 +40,7 @@ public class PoiDB2XML {
 	public static void toXML() {
 		offlineData = new PoiOfflineData(poiFilePath);
 		versionData = new VersionInfoT();
-		mapData = new IndoorMapT();
+		mapData = new MapDataT();
 
 		addFestivals();
 		addPOIs();
@@ -410,7 +407,7 @@ public class PoiDB2XML {
 				int cellPixel = rs.getInt(6);
 				int longitude = rs.getInt(7);
 				int latitude = rs.getInt(8);
-				mapData.addIndoorMapItem(mapId, normalMapUrl, largeMapUrl, name, label, cellPixel, longitude, latitude);
+				mapData.addMapItem(mapId, normalMapUrl, largeMapUrl, name, label, cellPixel, longitude, latitude);
 			}
 
 		} catch (Exception e) {
