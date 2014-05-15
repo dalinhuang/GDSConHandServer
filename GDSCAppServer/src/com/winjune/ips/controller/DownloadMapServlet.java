@@ -80,7 +80,7 @@ public class DownloadMapServlet extends HttpServlet {
 					return;
 				}
 				
-				String sql = "SELECT large_img_url, name, version, rows, columns, edit_time, version_code, cell_pixel"
+				String sql = "SELECT normal_map_url, large_map_url, name, label, cell_pixel, longitude, latitude, version_code"
 						+ " FROM map WHERE map_id=?";
 				
 				PreparedStatement statement = connection.prepareStatement(sql);
@@ -89,16 +89,14 @@ public class DownloadMapServlet extends HttpServlet {
 
 				if (rs.next()) {
 					IndoorMapReply map = new IndoorMapReply();
-					InitialMapReply iMap = new InitialMapReply();
-					map.setPictureName(rs.getString(1));
-					map.setName(rs.getString(2));
-					map.setVersion(rs.getString(3));
-					iMap.setRows(rs.getInt(4));
-					iMap.setColumns(rs.getInt(5));
-					map.setEditTime(rs.getString(6));
-					map.setVersionCode(rs.getInt(7));
-					iMap.setCellPixel(rs.getInt(8));
-					map.setInitialMap(iMap);
+					map.setNormalMapUrl(rs.getString(1));
+					map.setLargeMapUrl(rs.getString(2));
+					map.setName(rs.getString(3));
+					map.setLabel(rs.getString(4));
+					map.setCellPixel(rs.getInt(5));
+					map.setLongitude(rs.getInt(6));
+					map.setLatitude(rs.getInt(7));
+					map.setVersionCode(rs.getInt(8));
 					map.setId(mapId);
 					
 					String mapString = gson.toJson(map);
