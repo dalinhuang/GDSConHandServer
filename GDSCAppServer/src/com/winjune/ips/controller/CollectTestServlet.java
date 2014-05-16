@@ -78,17 +78,9 @@ public class CollectTestServlet extends HttpServlet {
 			}
 			
 			
-			// Verify valid map version code
-			int mapVersionCode = inputLocation.getMapVersion();
-			int mapId = inputLocation.getMapId();
-			if (!MapTable.verifyMapVersion(mapId, mapVersionCode)) {
-				LogUtil.getInstance().log(TAG + ", Inconsistent map version!");
-				// Not return here, but require reTest
-				reTest = 1;
-			} else {
+
 				// collect this location when the map is valid
 				Collecting.collect_this_location(TAG, inputLocation, wifiFingerPrint);
-			}
 					
 			// locate test now.
 			LocationSet outputLocations = Locating.locate_me(TAG, wifiFingerPrint, 2, reTest, inputLocation);

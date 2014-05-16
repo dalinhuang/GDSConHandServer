@@ -86,8 +86,8 @@ public class TestRecordTable {
 				       timestamp = rs.getString(3);
 				
 				TestRecord record = new TestRecord(id, mac, timestamp,
-						new Location(mapId1, rowId1, colId1, -1),
-						new Location(mapId2, rowId2, colId2, -1), from);	
+						new Location(mapId1, rowId1, colId1),
+						new Location(mapId2, rowId2, colId2), from);	
 				recordList.add(record);
 			}
 			

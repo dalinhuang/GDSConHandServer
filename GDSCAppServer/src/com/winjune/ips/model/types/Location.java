@@ -12,15 +12,13 @@ package com.winjune.ips.model.types;
  */
 public class Location {
 	private int mapId;
-	private int mapVersion;
 	private int x;
 	private int y;
 	
-	public Location(int mapId, int rowId, int colId, int v) {
+	public Location(int mapId, int rowId, int colId) {
 		this.mapId = mapId;
 		this.x = colId;  // x is column ID
 		this.y = rowId;  // y is row ID
-		this.mapVersion = v;
 	}
 	
 	public Location() {
@@ -64,17 +62,9 @@ public class Location {
 		this.y = rowId;
 	}
 
-	public int getMapVersion() {
-		return mapVersion;
-	}
-
-	public void setMapVersion(int mapVersion) {
-		this.mapVersion = mapVersion;
-	}
-	
 	@Override
 	public String toString() {
-		return "Location [MapId=" + mapId + ", row=" + y + ", col=" + x + ", ver=" + mapVersion + "]";
+		return "Location [MapId=" + mapId + ", row=" + y + ", col=" + x + "]";
 	}
 	
 }

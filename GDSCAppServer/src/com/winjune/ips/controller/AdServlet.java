@@ -61,7 +61,6 @@ public class AdServlet extends HttpServlet {
 				LogUtil.getInstance().log(
 						TAG + ", Receive AD message with Location: "
 								+ "{map id: " + location.getMapId()
-								+ ", map version: " + location.getMapVersion()
 								+ ", (" + location.getRowId() + ", " + location.getColId() + ")");
 			}
 		} else {

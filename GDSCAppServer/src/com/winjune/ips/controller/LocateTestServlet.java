@@ -79,22 +79,11 @@ public class LocateTestServlet extends HttpServlet {
 
 			int reTest = 0; // No need to reTest
 
-			// Verify valid map version code
-			int mapVersionCode = inputLocation.getMapVersion();
-			int mapId = inputLocation.getMapId();
-			if (!MapTable.verifyMapVersion(mapId, mapVersionCode)) {
-				LogUtil.getInstance().log(TAG + ", Inconsistent map version!");
-				// Not return here, but require reTest
-				reTest = 1;
-			} else {
-				// insert only when the map version is valid
-				// if there is no data for incoming position, insert one.
 				if (!PositionTable.this_position_has_data(inputLocation)) {
 					LogUtil.getInstance().log(TAG + ": Test on new position detected, insert input data as fingerprint.");
 					Collecting.collect_this_location(TAG, inputLocation, wifiFingerPrint);
 					reTest = 1;
 				}
-			}
 			
 			// locate test now.
 			LocationSet outputLocations = Locating.locate_me(TAG, wifiFingerPrint, 1, reTest, inputLocation);

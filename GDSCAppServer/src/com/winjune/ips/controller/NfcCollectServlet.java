@@ -70,14 +70,6 @@ public class NfcCollectServlet extends HttpServlet {
 			if (location != null) {
 				LogUtil.getInstance().log(TAG + ", " + nfcLocation.getTagId() + " - " + location.toString());
 				
-				// Verify valid map version code
-				int mapVersionCode = location.getMapVersion();
-				int mapId = location.getMapId();
-				
-				if (!MapTable.verifyMapVersion(mapId, mapVersionCode)) {
-					LogUtil.getInstance().log(TAG + ", Inconsistent map version!");
-					return;
-				}
 			} else {
 				LogUtil.getInstance().log(TAG + ", Location is null!");
 				return;

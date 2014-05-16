@@ -40,14 +40,6 @@ public class Querying {
 		ArrayList<Location> locations = request.getLocations();
 
 		for (Location location : locations) {			
-			// Verify valid map version code
-			int mapVersionCode = location.getMapVersion();
-			int mapId = location.getMapId();			
-			if (!MapTable.verifyMapVersion(mapId, mapVersionCode)) {
-				LogUtil.getInstance().log(TAG + ", Inconsistent map version!");
-				continue;
-			}			
-			
 			int positionId = PositionTable.getPositionId(location);
 			if (positionId < 0) {
 				LogUtil.getInstance().log(TAG + ", invalid position.");

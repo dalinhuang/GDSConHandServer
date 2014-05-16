@@ -63,15 +63,6 @@ public class CollectServlet extends HttpServlet {
 			
 			Location location = collectInfo.getLocation();
 			
-			// Verify valid map version code
-			int mapVersionCode = location.getMapVersion();
-			int mapId = location.getMapId();
-			
-			if (!MapTable.verifyMapVersion(mapId, mapVersionCode)) {
-				LogUtil.getInstance().log(TAG + ", Inconsistent map version!");
-				return;
-			}
-
 			Collecting.collect_this_location(TAG, location, collectInfo.getWifiFingerPrint());
 			
 			if (DEBUG) {

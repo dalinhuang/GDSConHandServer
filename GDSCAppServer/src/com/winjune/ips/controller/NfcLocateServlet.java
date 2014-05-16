@@ -81,7 +81,7 @@ public class NfcLocateServlet extends HttpServlet {
 		if (positionId < 0) {
 			if (DEBUG)
 				LogUtil.getInstance().log(TAG + ", can not find position. <<< positionID = " + positionId);
-			location = new Location(-1, -1, -1, -1);
+			location = new Location(-1, -1, -1);
 		} else {
 			location = PositionTable.getPositionById(positionId);
 			if (location == null) {

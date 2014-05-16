@@ -70,15 +70,6 @@ public class FingerprintDeleteServlet extends HttpServlet {
 			LogUtil.getInstance().log(TAG + ", location is null!");
 		}
 		
-		// Verify valid map version code
-		int mapVersionCode = location.getMapVersion();
-		int mapId = location.getMapId();
-		
-		if (!MapTable.verifyMapVersion(mapId, mapVersionCode)) {
-			LogUtil.getInstance().log(TAG + ", Inconsistent map version!");
-			return;
-		}
-
 		// delete
 		FingerprintDeleting fingerprintDeletingInstance = FingerprintDeleting.getInstance();		
 		if (fingerprintDeletingInstance == null) {

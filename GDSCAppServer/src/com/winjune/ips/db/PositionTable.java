@@ -101,7 +101,7 @@ public class PositionTable {
 			return null;
 		}
 
-		String sql = "SELECT A.map_id, A.row_id, A.col_id, B.version_code\n"
+		String sql = "SELECT A.map_id, A.row_id, A.col_id\n"
 				   + "FROM position A INNER JOIN map B ON A.map_id = B.map_id\n"
 				   + "WHERE A.id=?";
 		try {
@@ -111,10 +111,9 @@ public class PositionTable {
 			if (rs.next()) {
 				int mapId = rs.getInt("map_id"),
 					rowId = rs.getInt("row_id"),
-					colId = rs.getInt("col_id"),
-					verId = rs.getInt("version_code");
+					colId = rs.getInt("col_id");
 
-				Location location = new Location(mapId, rowId, colId, verId);
+				Location location = new Location(mapId, rowId, colId);
 				return location;
 			}
 		} catch (SQLException e) {
