@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import com.winjune.ips.db.MysqlManager;
 import com.winjune.ips.settings.WifiIpsSettings;
 import com.winjune.wifiindoor.lib.map.MapDataT;
+import com.winjune.wifiindoor.lib.map.NaviNodeT;
+import com.winjune.wifiindoor.lib.map.NaviPathT;
 import com.winjune.wifiindoor.lib.poi.BusLineR;
 import com.winjune.wifiindoor.lib.poi.MovieInfoR;
 import com.winjune.wifiindoor.lib.poi.POIType;
@@ -15,32 +17,44 @@ import com.winjune.wifiindoor.lib.poi.PlayhouseInfoR;
 import com.winjune.wifiindoor.lib.poi.PoiOfflineData;
 import com.winjune.wifiindoor.lib.version.VersionInfoT;
 
-public class PoiDB2XML {
+public class OffileData2XML {
 	public static final String TAG = "POI";
 	public static final boolean DEBUG = WifiIpsSettings.DEBUG;
 	private static PoiOfflineData offlineData;
 	private static VersionInfoT versionData;
 	private static MapDataT mapData;
+	private static NaviNodeT naviNodeData;
+	private static NaviPathT naviPathData;
 	private static String poiFilePath;
 	private static String versionFilePath;
 	private static String mapFilePath;
+	private static String naviPathFilePath;
+	private static String naviNodeFilePath;
 
 	public static void setPoiFilePath(String poiFilePath) {
-		PoiDB2XML.poiFilePath = poiFilePath;
+		OffileData2XML.poiFilePath = poiFilePath;
 	}
 
 	public static void setVersionFilePath(String versionFilePath) {
-		PoiDB2XML.versionFilePath = versionFilePath;
+		OffileData2XML.versionFilePath = versionFilePath;
 	}
 
 	public static void setMapFilePath(String mapFilePath) {
-		PoiDB2XML.mapFilePath = mapFilePath;
+		OffileData2XML.mapFilePath = mapFilePath;
+	}
+	public static void setNaviPathFilePath(String naviPathFilePath) {
+		OffileData2XML.naviPathFilePath = naviPathFilePath;
+	}
+	public static void setNaviNodeFilePath(String naviNodeFilePath) {
+		OffileData2XML.naviNodeFilePath = naviNodeFilePath;
 	}
 
 	public static void toXML() {
 		offlineData = new PoiOfflineData(poiFilePath);
 		versionData = new VersionInfoT();
 		mapData = new MapDataT();
+		naviNodeData = new NaviNodeT();
+		naviPathData = new NaviPathT();
 
 		addFestivals();
 		addPOIs();
@@ -52,10 +66,14 @@ public class PoiDB2XML {
 		
 		addVersions();
 		addMaps();
+		addNaviNodes();
+		addNaviPaths();
 
 		offlineData.toXML();
 		versionData.toXML(versionFilePath+"version_table.xml",versionData);
 		mapData.toXML(mapFilePath+"map_table.xml", mapData);
+		naviPathData.toXML(naviPathFilePath+"navi_path_table.xml", naviPathData);
+		naviNodeData.toXML(naviNodeFilePath+"navi_node_table.xml", naviNodeData);
 
 	}
 
@@ -408,6 +426,93 @@ public class PoiDB2XML {
 				int longitude = rs.getInt(7);
 				int latitude = rs.getInt(8);
 				mapData.addMapItem(mapId, normalMapUrl, largeMapUrl, name, label, cellPixel, longitude, latitude);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			if (DEBUG) {
+				LogUtil.getInstance().log(
+						TAG + ", *** SWERR *** Refer to exception traceback");
+			}
+		}
+
+	}
+	
+	public static void addNaviNodes() {
+
+		try {
+			MysqlManager instance = MysqlManager.getInstance();
+			if (instance == null) {
+				LogUtil.getInstance().log(
+						TAG + ", " + "MysqlManager instance is null.");
+				return;
+			}
+
+			Connection connection = instance.getConnection();
+			if (connection == null) {
+				LogUtil.getInstance().log(TAG + ", " + "connection is null.");
+				return;
+			}
+
+			String sql = "SELECT id, map_id, placeX, placeY, label"
+					+ " FROM navi_node";
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			
+
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				int mapId = rs.getInt(2);
+				int placeX = rs.getInt(3);
+				int placeY = rs.getInt(4);
+				String label = rs.getString(5);
+				naviNodeData.addNode(id, mapId, placeX, placeY, label);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			if (DEBUG) {
+				LogUtil.getInstance().log(
+						TAG + ", *** SWERR *** Refer to exception traceback");
+			}
+		}
+
+	}
+	
+	public static void addNaviPaths() {
+
+		try {
+			MysqlManager instance = MysqlManager.getInstance();
+			if (instance == null) {
+				LogUtil.getInstance().log(
+						TAG + ", " + "MysqlManager instance is null.");
+				return;
+			}
+
+			Connection connection = instance.getConnection();
+			if (connection == null) {
+				LogUtil.getInstance().log(TAG + ", " + "connection is null.");
+				return;
+			}
+
+			String sql = "SELECT id, fromNode, toNode, direction, forwardGuide, backwardGuide"
+					+ " FROM navi_path";
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			
+
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				int fromNode = rs.getInt(2);
+				int toNode = rs.getInt(3);
+				byte direction = rs.getByte(4);
+				String forwardGuide = rs.getString(5);
+				String backwardGuide = rs.getString(6);
+				naviPathData.addPath(id, fromNode, toNode, direction, forwardGuide, backwardGuide);
 			}
 
 		} catch (Exception e) {

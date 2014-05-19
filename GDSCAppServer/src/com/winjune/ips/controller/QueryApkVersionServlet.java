@@ -20,7 +20,7 @@ import com.winjune.ips.model.types.ApkVersionReply;
 import com.winjune.ips.model.types.ApkVersionRequest;
 import com.winjune.ips.settings.WifiIpsSettings;
 import com.winjune.ips.utils.LogUtil;
-import com.winjune.ips.utils.PoiDB2XML;
+import com.winjune.ips.utils.OffileData2XML;
 
 /**
  * Servlet implementation class QueryApkVersionServlet
@@ -118,10 +118,13 @@ public class QueryApkVersionServlet extends HttpServlet {
 				.log(TAG
 						+ "*****************Incoming Message QueryApkVersion End******************");
 		String fileSeparator = System.getProperty("file.separator");
-		PoiDB2XML.setPoiFilePath(getServletContext().getRealPath(fileSeparator+"xml")+fileSeparator);
-		PoiDB2XML.setVersionFilePath(getServletContext().getRealPath(fileSeparator+"xml")+fileSeparator);
-		PoiDB2XML.setMapFilePath(getServletContext().getRealPath(fileSeparator+"xml")+fileSeparator);
-		PoiDB2XML.toXML();
+		String filePath = getServletContext().getRealPath(fileSeparator+"xml")+fileSeparator;
+		OffileData2XML.setPoiFilePath(filePath);
+		OffileData2XML.setVersionFilePath(filePath);
+		OffileData2XML.setMapFilePath(filePath);
+		OffileData2XML.setNaviNodeFilePath(filePath);
+		OffileData2XML.setNaviPathFilePath(filePath);
+		OffileData2XML.toXML();
 	}
 
 }
