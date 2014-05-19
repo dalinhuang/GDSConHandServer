@@ -20,7 +20,7 @@ import com.winjune.ips.model.types.ApkVersionReply;
 import com.winjune.ips.model.types.ApkVersionRequest;
 import com.winjune.ips.settings.WifiIpsSettings;
 import com.winjune.ips.utils.LogUtil;
-import com.winjune.ips.utils.OffileData2XML;
+import com.winjune.ips.utils.OffileDataManager;
 
 /**
  * Servlet implementation class QueryApkVersionServlet
@@ -119,12 +119,12 @@ public class QueryApkVersionServlet extends HttpServlet {
 						+ "*****************Incoming Message QueryApkVersion End******************");
 		String fileSeparator = System.getProperty("file.separator");
 		String filePath = getServletContext().getRealPath(fileSeparator+"xml")+fileSeparator;
-		OffileData2XML.setPoiFilePath(filePath);
-		OffileData2XML.setVersionFilePath(filePath);
-		OffileData2XML.setMapFilePath(filePath);
-		OffileData2XML.setNaviNodeFilePath(filePath);
-		OffileData2XML.setNaviPathFilePath(filePath);
-		OffileData2XML.toXML();
+		OffileDataManager.setPoiFilePath(filePath);
+		OffileDataManager.setVersionFilePath(filePath);
+		OffileDataManager.setMapFilePath(filePath);
+		OffileDataManager.setNaviNodeFilePath(filePath);
+		OffileDataManager.setNaviPathFilePath(filePath);
+		OffileDataManager.toXML();
 	}
 
 }

@@ -17,7 +17,7 @@ import com.winjune.wifiindoor.lib.poi.PlayhouseInfoR;
 import com.winjune.wifiindoor.lib.poi.PoiOfflineData;
 import com.winjune.wifiindoor.lib.version.VersionInfoT;
 
-public class OffileData2XML {
+public class OffileDataManager {
 	public static final String TAG = "POI";
 	public static final boolean DEBUG = WifiIpsSettings.DEBUG;
 	private static PoiOfflineData offlineData;
@@ -32,21 +32,21 @@ public class OffileData2XML {
 	private static String naviNodeFilePath;
 
 	public static void setPoiFilePath(String poiFilePath) {
-		OffileData2XML.poiFilePath = poiFilePath;
+		OffileDataManager.poiFilePath = poiFilePath;
 	}
 
 	public static void setVersionFilePath(String versionFilePath) {
-		OffileData2XML.versionFilePath = versionFilePath;
+		OffileDataManager.versionFilePath = versionFilePath;
 	}
 
 	public static void setMapFilePath(String mapFilePath) {
-		OffileData2XML.mapFilePath = mapFilePath;
+		OffileDataManager.mapFilePath = mapFilePath;
 	}
 	public static void setNaviPathFilePath(String naviPathFilePath) {
-		OffileData2XML.naviPathFilePath = naviPathFilePath;
+		OffileDataManager.naviPathFilePath = naviPathFilePath;
 	}
 	public static void setNaviNodeFilePath(String naviNodeFilePath) {
-		OffileData2XML.naviNodeFilePath = naviNodeFilePath;
+		OffileDataManager.naviNodeFilePath = naviNodeFilePath;
 	}
 
 	public static void toXML() {
