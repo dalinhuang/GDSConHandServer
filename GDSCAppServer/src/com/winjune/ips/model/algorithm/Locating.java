@@ -15,11 +15,17 @@ import java.util.TreeSet;
 
 import com.winjune.ips.db.MysqlManager;
 import com.winjune.ips.db.PositionTable;
+import com.winjune.ips.db.UnreachableAreaTable;
+import com.winjune.ips.model.types.CircleArea;
 import com.winjune.ips.model.types.Location;
 import com.winjune.ips.model.types.LocationSet;
 import com.winjune.ips.model.types.MyWifiInfo;
+import com.winjune.ips.model.types.QuadrangleArea;
+import com.winjune.ips.model.types.TriangleArea;
+import com.winjune.ips.model.types.UnreachableArea;
 import com.winjune.ips.model.types.WifiFingerPrint;
 import com.winjune.ips.model.types.WifiFingerPrintSample;
+import com.winjune.ips.model.utils.MathUtil;
 import com.winjune.ips.settings.WifiIpsSettings;
 import com.winjune.ips.utils.LogUtil;
 
@@ -85,6 +91,12 @@ public class Locating {
 				if (null == loc) {
 					LogUtil.getInstance().log(TAG + ", *** SWERR *** Failed when NEW a location, it should not happen!");
 					return null;
+				}
+				else {
+					// adjust the locating result if the location is in unreachable area
+					
+					// Comment the code as it is not tested - Derek, 2014/05/22
+					//loc = adjustLocationByUnreachableArea(loc);
 				}
 				locs.addLocation(loc);
 				poses.add(positionId);
@@ -271,5 +283,64 @@ public class Locating {
 			LogUtil.getInstance().log(TAG + ", MySQL returns failure: " + e.getMessage());
 		}
 		return bad_rc;
+	}
+	
+	// Adjust the location if it is in the unreachable area
+	// 2014/05/22: Initialized by Derek
+	private static Location adjustLocationByUnreachableArea(Location loc) {
+		Location result = loc;
+		
+		UnreachableArea ua = UnreachableAreaTable.getUnreachableArea(loc.getMapId());
+		
+		if (ua != null) {
+			// This map has unreachable area
+			// Check whether the location is in unreachable circle areas.
+			ArrayList<CircleArea> circleList = ua.getCircles();
+			if (!circleList.isEmpty()) {
+				for (int i=0; i<circleList.size(); i++) {
+					Location center = circleList.get(i).getCenter();
+					int r = circleList.get(i).getRadius();
+					
+					if (MathUtil.isDotInCircle(loc, center, r)) {
+						result = MathUtil.findNearestPointInCircle(loc, center, (double) r);
+						break;
+					}
+				}
+			}
+			
+			// Check whether the location is in unreachable triangle areas.
+			ArrayList<TriangleArea> triangleList = ua.getTriangles();
+			if (!triangleList.isEmpty()) {
+				for (int i=0; i<triangleList.size(); i++) {
+					Location A = triangleList.get(i).getA();
+					Location B = triangleList.get(i).getB();
+					Location C = triangleList.get(i).getC();
+					
+					if (MathUtil.isDotInTriangle(loc, A, B, C)) {
+						result = MathUtil.findNearestPointInTriangle(loc, A, B, C);
+						break;
+					}
+				}
+			}
+			
+			// Check whether the location is in unreachable quadrangle areas.
+			ArrayList<QuadrangleArea> quadrangleList = ua.getQuadrangles();
+			if (!quadrangleList.isEmpty()) {
+				for (int i=0; i<quadrangleList.size(); i++) {
+					Location A = quadrangleList.get(i).getA();
+					Location B = quadrangleList.get(i).getB();
+					Location C = quadrangleList.get(i).getC();
+					Location D = quadrangleList.get(i).getD();
+					
+					if (MathUtil.isDotInQuadrangle(loc, A, B, C, D)) {
+						result = MathUtil.findNearestPointInQuadrangle(loc, A, B, C, D);
+						break;
+					}
+				}
+			}
+			
+		}
+		
+		return result;
 	}
 }

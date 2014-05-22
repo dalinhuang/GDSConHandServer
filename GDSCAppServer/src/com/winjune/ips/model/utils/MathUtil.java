@@ -2,6 +2,8 @@ package com.winjune.ips.model.utils;
 
 import com.winjune.ips.model.types.Location;
 
+// 2014/05/20: Initialized by Derek
+
 public class MathUtil {
 
 	// Calculate the area of a triangle which is defined by the 3 vertexes a, b and c
@@ -37,6 +39,16 @@ public class MathUtil {
 		public static boolean isDotInCircle(Location p, Location center, double radius) {
 			
 			if (pointToPointDistance(p, center) <= radius) {
+				return true;
+			}
+			
+			return false;
+		}
+		
+		//Return whether the dot is in the rectangle defined by the four vertexes (a and c, b and d are the diagonal)
+		public static boolean isDotInQuadrangle(Location p, Location a, Location b, Location c, Location d) {
+			
+			if (isDotInTriangle(p, a, b, c) || isDotInTriangle(p, a, c, d)) {
 				return true;
 			}
 			
@@ -96,14 +108,83 @@ public class MathUtil {
 			
 			result.setColId((int) resultX);
 			result.setRowId((int) resultY);
+			result.setMapId(a.getMapId());
 			
 			return result;
 		}
 		
+		//Find the nearest point x in triangle from point p given that p is in the triangle
+		public static Location findNearestPointInTriangle(Location p, Location a, Location b, Location c) {
+			
+			Location result = new Location();
+			result.setMapId(p.getMapId());
+			
+			double pToab = pointToLineDistance(p, a, b);
+			double pToac = pointToLineDistance(p, a, c);
+			double pTobc = pointToLineDistance(p, b, c);
+			
+			double tmp = Math.min(pToab, pToac);
+			
+			if (pTobc < tmp) {
+				//pTobc is the shortest one
+				return findNearestPointInLine(p, b, c);
+			}
+			else {
+				if (pToab < pToac) {
+					//pToab is the shortest one
+					return findNearestPointInLine(p, a, b);
+				}
+				else {
+					//pToac is the shortest one
+					return findNearestPointInLine(p, a, c);
+				}
+			}
+			
+		}
+		
+		//Find the nearest point x in quadrangle from point p given that p is in the quadrangle
+		//given that p is in the quadrangle
+		public static Location findNearestPointInQuadrangle(Location p, Location a, Location b, Location c, Location d) {
+			
+			Location result = new Location();
+			result.setMapId(p.getMapId());
+			
+			double pToab = pointToLineDistance(p, a, b);
+			double pTobc = pointToLineDistance(p, b, c);
+			double pTocd = pointToLineDistance(p, c, d);
+			double pToad = pointToLineDistance(p, a, d);
+			
+			double tmp1 = Math.min(pToab, pTobc);
+			double tmp2 = Math.min(pTocd, pToad);
+			
+			if (tmp1 < tmp2) {
+				if (pToab < pTobc) {
+					//pToab is the shortest one
+					return findNearestPointInLine(p, a, b);
+				}
+				else {
+					//pTobc is the shortest one
+					return findNearestPointInLine(p, b, c);
+				}
+			}
+			else {
+				if (pTocd < pToad) {
+					//pTocd is the shortest one
+					return findNearestPointInLine(p, c, d);
+				}
+				else {
+					//pToad is the shortest one
+					return findNearestPointInLine(p, a, d);
+				}
+			}
+		}
+		
 		//Find the nearest point x in circle from which to point p is the shortest distance
+		//given that p is in the circle
 		public static Location findNearestPointInCircle(Location p, Location center, double radius) {
 			
 			Location result = new Location();
+			result.setMapId(center.getMapId());
 			
 			float x1 = center.getColId();
 			float y1 = center.getRowId();
