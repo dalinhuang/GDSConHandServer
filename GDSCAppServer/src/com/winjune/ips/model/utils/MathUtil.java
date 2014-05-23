@@ -116,9 +116,6 @@ public class MathUtil {
 		//Find the nearest point x in triangle from point p given that p is in the triangle
 		public static Location findNearestPointInTriangle(Location p, Location a, Location b, Location c) {
 			
-			Location result = new Location();
-			result.setMapId(p.getMapId());
-			
 			double pToab = pointToLineDistance(p, a, b);
 			double pToac = pointToLineDistance(p, a, c);
 			double pTobc = pointToLineDistance(p, b, c);
@@ -145,9 +142,6 @@ public class MathUtil {
 		//Find the nearest point x in quadrangle from point p given that p is in the quadrangle
 		//given that p is in the quadrangle
 		public static Location findNearestPointInQuadrangle(Location p, Location a, Location b, Location c, Location d) {
-			
-			Location result = new Location();
-			result.setMapId(p.getMapId());
 			
 			double pToab = pointToLineDistance(p, a, b);
 			double pTobc = pointToLineDistance(p, b, c);

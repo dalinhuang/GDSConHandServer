@@ -50,8 +50,7 @@ public class UnreachableAreaTable {
 				do {
 					String areaType = rs1.getString("AreaType");
 					int index;
-					switch (areaType)  {
-						case "circle":
+					if  (areaType == "circle") {
 							index = rs1.getInt("CircleIndex");
 							
 							String sql2 = "SELECT Center_ColID, Center_RowID, Radius"
@@ -67,8 +66,8 @@ public class UnreachableAreaTable {
 								ura.getCircles().add(ca);
 							}
 							
-							break;
-						case "triangle":
+					}
+					else if (areaType == "triangle") {
 							index = rs1.getInt("TriangleIndex");
 							
 							String sql3 = "SELECT A_ColID, A_RowID, B_ColID, B_RowID, C_ColID, C_RowID"
@@ -85,8 +84,8 @@ public class UnreachableAreaTable {
 								
 								ura.getTriangles().add(ta);
 							}
-							break;
-						case "quadrangle":
+					}
+					else if (areaType == "quadrangle") {
 							index = rs1.getInt("QuadrangleIndex");
 							
 							String sql4 = "SELECT A_ColID, A_RowID, B_ColID, B_RowID, C_ColID, C_RowID, D_ColID, D_RowID"
@@ -105,9 +104,6 @@ public class UnreachableAreaTable {
 								ura.getQuadrangles().add(qa);
 
 							}
-							break;
-						default:
-							break;
 					}
 					
 				} while (rs1.next());
