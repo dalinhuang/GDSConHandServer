@@ -74,6 +74,33 @@ public class OffileDataManager {
 		mapData.toXML(mapFilePath+"map_table.xml", mapData);
 		naviPathData.toXML(naviPathFilePath+"navi_path_table.xml", naviPathData);
 		naviNodeData.toXML(naviNodeFilePath+"navi_node_table.xml", naviNodeData);
+	}
+
+	public static void toJson() {
+		offlineData = new PoiOfflineData(poiFilePath);
+		versionData = new VersionInfoT();
+		mapData = new MapDataT();
+		naviNodeData = new NaviNodeT();
+		naviPathData = new NaviPathT();
+
+		addFestivals();
+		addPOIs();
+		addBusStations();
+		addTheatres();
+		addRestaurants();
+
+		addPlayhouses();
+		
+		addVersions();
+		addMaps();
+		addNaviNodes();
+		addNaviPaths();
+
+		offlineData.toJson();
+		versionData.toJson(versionFilePath+"version_table.json",versionData);
+		mapData.toJson(mapFilePath+"map_table.json", mapData);
+		naviPathData.toJson(naviPathFilePath+"navi_path_table.json", naviPathData);
+		naviNodeData.toJson(naviNodeFilePath+"navi_node_table.json", naviNodeData);
 
 	}
 

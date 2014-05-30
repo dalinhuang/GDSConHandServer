@@ -125,6 +125,7 @@ public class QueryApkVersionServlet extends HttpServlet {
 		OffileDataManager.setNaviNodeFilePath(filePath);
 		OffileDataManager.setNaviPathFilePath(filePath);
 		OffileDataManager.toXML();
+		OffileDataManager.toJson();
 	}
 
 }
