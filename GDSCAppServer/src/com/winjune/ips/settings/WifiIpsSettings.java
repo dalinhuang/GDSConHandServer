@@ -9,7 +9,7 @@ public class WifiIpsSettings {
 	public static float mse_threshold = 1.0f; // 0.01 is too small???
 	public static float mse_ref_threshold = 30.0f;
 	public static final boolean RUNNING_IN_LINUX = true; 
-	public static String LINUX_LOGGER_FILE = "/data/log/ipsserver.log";
+	public static String LINUX_LOGGER_FILE = "/var/log/ipsserver.log";
 	public static final String LINUX_SERVER_DB_USER_NAME = "ips";
 	public static final String LINUX_SERVER_DB_USER_PASSWORD = "ips";
 	public static String LINUX_SERVER_DB_URL = "jdbc:mysql://localhost:3306/wips";
