@@ -155,7 +155,7 @@ public class OffileDataManager {
 				return;
 			}
 
-			String sql = "SELECT id, type, hallId, ttsNo, mapId, placeX, placeY, iconUrl, audioUrl, webUrl, picUrl, label, generalDesc, detailedDesc, shareble, reachable, readable, scale, alpha, rotation, minZoomFactor, maxZoomFactor"
+			String sql = "SELECT id, type, hallId, ttsNo, mapId, placeX, placeY, neareastNaviNode, iconUrl, audioUrl, webUrl, picUrl, label, generalDesc, detailedDesc, shareble, reachable, readable, scale, alpha, rotation, minZoomFactor, maxZoomFactor"
 					+ " FROM poi";
 
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -170,21 +170,22 @@ public class OffileDataManager {
 				poiR.mapId = rs.getInt(5);
 				poiR.placeX = rs.getInt(6);
 				poiR.placeY = rs.getInt(7);
-				poiR.iconUrl = rs.getString(8);
-				poiR.audioUrl = rs.getString(9);
-				poiR.webUrl = rs.getString(10);
-				poiR.picUrl = rs.getString(11);
-				poiR.label = rs.getString(12);
-				poiR.generalDesc = rs.getString(13);
-				poiR.detailedDesc = rs.getString(14);
-				poiR.shareble = rs.getBoolean(15);
-				poiR.reachable = rs.getBoolean(16);
-				poiR.readable = rs.getBoolean(17);
-				poiR.scale = rs.getFloat(18);
-				poiR.alpha = rs.getFloat(19);
-				poiR.rotation = rs.getFloat(20);
-				poiR.minZoomFactor = rs.getFloat(21);
-				poiR.maxZoomFactor = rs.getFloat(22);
+				poiR.nearNaviNode = rs.getInt(8);
+				poiR.iconUrl = rs.getString(9);
+				poiR.audioUrl = rs.getString(10);
+				poiR.webUrl = rs.getString(11);
+				poiR.picUrl = rs.getString(12);
+				poiR.label = rs.getString(13);
+				poiR.generalDesc = rs.getString(14);
+				poiR.detailedDesc = rs.getString(15);
+				poiR.shareble = rs.getBoolean(16);
+				poiR.reachable = rs.getBoolean(17);
+				poiR.readable = rs.getBoolean(18);
+				poiR.scale = rs.getFloat(19);
+				poiR.alpha = rs.getFloat(20);
+				poiR.rotation = rs.getFloat(21);
+				poiR.minZoomFactor = rs.getFloat(22);
+				poiR.maxZoomFactor = rs.getFloat(23);
 				offlineData.poiTable.poiData.add(poiR);
 			}
 
